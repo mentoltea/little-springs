@@ -2,10 +2,14 @@
 #define SPRINGS_S
 
 #include <raylib.h>
-#include "memmanager.h"
-#include "vector.h"
+#include "externfuncs.h"
 
 #define MAXIMUM 10000
+
+// typedef struct {
+//     float x;
+//     float y;
+// } Vector2;
 
 typedef struct Obtacle {
     Vector2 pos;
