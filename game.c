@@ -49,6 +49,7 @@ Game* InitGame(int WinX, int WinY, int FPS) {
     game->tickpause = 0;
     game->pressed_count = 0;
     game->obsorb = 2;
+    game->firstupdate = 0;
 
     return game;
 }
@@ -179,8 +180,9 @@ void UpdateGame(Game* game) {
             for (int x=0; x<game->XSIZE; x++) {
                 temp = game->table[y][x];
                 
-                if ((!game->pause || game->onetick) && game->prevtable[y][x] == temp) {
-                    DrawRectangle(x*game->BlockSize, y*game->BlockSize, game->BlockSize, game->BlockSize, game->BaseColor);
+                if (game->firstupdate && (!game->pause || game->onetick) && game->prevtable[y][x] == temp) {
+                    // DrawRectangle(x*game->BlockSize, y*game->BlockSize, game->BlockSize, game->BlockSize, game->BaseColor);
+                    game->firstupdate = 1;
                     continue;
                 }
                 temp *= 100;

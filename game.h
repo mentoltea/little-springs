@@ -33,6 +33,7 @@ typedef struct Game {
     size_t pressed_count;
     char printbuff[64];
     double obsorb;
+    int firstupdate;
 } Game;
 
 
