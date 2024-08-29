@@ -116,7 +116,7 @@ void UpdateGame(Game* game) {
             game->obsorb -= 0.02;
         }
 
-        if (IsMouseButtonDown(MOUSE_BUTTON_EXTRA) && game->TICK%3==0) {
+        if ((IsMouseButtonDown(MOUSE_BUTTON_EXTRA) || IsKeyDown(KEY_UP)) && game->TICK%3==0) {
             Vector2 mouse = GetMousePosition();
             Obtacle obt;
             obt.pos.x = (int)mouse.x/game->BlockSize;
@@ -124,7 +124,7 @@ void UpdateGame(Game* game) {
             obt.size = (Vector2){10,10};
             obt.obsorb = 1;
             game->obts = vec_add(game->obts, &obt);
-        } else if (IsMouseButtonDown(MOUSE_BUTTON_SIDE) && game->TICK%3==0) {
+        } else if ((IsMouseButtonDown(MOUSE_BUTTON_SIDE) || IsKeyDown(KEY_DOWN)) && game->TICK%3==0) {
             Vector2 mouse = GetMousePosition();
             Obtacle obt;
             obt.pos.x = (int)mouse.x/game->BlockSize;
