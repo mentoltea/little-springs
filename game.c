@@ -41,9 +41,9 @@ Game* InitGame(int WinX, int WinY, int FPS) {
     }
     game->table = game->table1;
     game->prevtable = game->table0;
-    game->bet = 200;
-    game->betbet = 1;
-    game->betdef = 1;
+    game->bet = 2;
+    game->betbet = 0.1;
+    game->betdef = 0.1;
     game->pause = 0;
     game->onetick = 0;
     game->tickpause = 0;
@@ -99,11 +99,11 @@ void UpdateGame(Game* game) {
         if (IsKeyDown(KEY_EQUAL)) {
             game->bet+=game->betbet;
             game->pressed_count++;
-            if (game->pressed_count >= game->FPS*1.5) game->betbet+=1;
+            if (game->pressed_count >= game->FPS*1.5) game->betbet+=game->betdef;
         } else if (IsKeyDown(KEY_MINUS)) {
             game->bet-=game->betbet;
             game->pressed_count++;
-            if (game->pressed_count >= game->FPS*1.5) game->betbet+=1;
+            if (game->pressed_count >= game->FPS*1.5) game->betbet+=game->betdef;
         } else {
             game->pressed_count = 0;
             game->betbet = game->betdef;
@@ -172,6 +172,7 @@ void UpdateGame(Game* game) {
         if (!game->pause || game->onetick) update_table(game->XSIZE, game->YSIZE, game->prevtable, game->table, game->obts);
         
         Color col = game->BaseColor;
+        game->BaseColor.r = 120;
         int r,g,b;
         double temp;
         for (int y=0; y<game->YSIZE; y++) {
@@ -214,7 +215,7 @@ void UpdateGame(Game* game) {
         //     DrawLine(0, y*BlockSize, WinX, y*BlockSize, BLACK);
         // }
 
-        snprintf(game->printbuff, 64, "%.0lf", game->bet);
+        snprintf(game->printbuff, 64, "%.1lf", game->bet);
         DrawText(game->printbuff, 0, 20, 30, BLACK);
         snprintf(game->printbuff, 64, "%.2lf", game->obsorb);
         DrawText(game->printbuff, 0, 50, 30, BLACK);

@@ -1,3 +1,7 @@
+//gcc .\main.c .\memmanager.c .\vector.c -lraylibdll -lgdi32 -lwinmm -o main
+//gcc .\game.c .\spring.c .\externfuncs.c -lraylibdll -lgdi32 -lwinmm --shared -o game0.dll
+//gcc .\game.c .\spring.c .\externfuncs.c -lraylibdll -lgdi32 -lwinmm --shared -o game1.dll
+
 #include <stdio.h>
 #include <raylib.h>
 #include "memmanager.h"
@@ -74,7 +78,7 @@ bool LoadGame() {
 
 int main() {
     if (!LoadGame()) {
-        printf("Cant load lib: %d\n", GetLastError());
+        printf("Cant load lib. ERROR: %d\n", GetLastError());
         goto GAME_ABS_EXIT;
     }
     srand(time(NULL));
@@ -88,8 +92,8 @@ int main() {
         TICK = TICK%FPS;
 
         BeginDrawing();
-        if (IsKeyPressed(KEY_RIGHT_ALT) && TICK%2==0) {
-            printf("Reloading...\n");
+        if (IsKeyDown(KEY_RIGHT_ALT) && TICK%10==0) {
+            printf("Loading game%d.dll...\n", shift);
             if (!LoadGame()) {
                 printf("Cant load lib: %d\n", GetLastError());
                 goto GAME_ABS_EXIT;
